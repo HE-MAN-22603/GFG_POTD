@@ -1,0 +1,47 @@
+//Minimum sum code in C++
+
+class Solution {
+public:
+    std::string minSum(std::vector<int>& arr) {
+        // Sort the array
+        std::sort(arr.begin(), arr.end());
+        
+        // Create two numbers from the sorted array
+        std::string num1, num2;
+        
+        for (size_t i = 0; i < arr.size(); ++i) {
+            if (i % 2 == 0) {
+                num1 += std::to_string(arr[i]);
+            } else {
+                num2 += std::to_string(arr[i]);
+            }
+        }
+        
+        // Variables to hold the result and carry
+        std::string result;
+        int carry = 0;
+        size_t i = num1.size() - 1, j = num2.size() - 1;
+        
+        // Add the two numbers from the end (like manual addition)
+        while (i != SIZE_MAX || j != SIZE_MAX || carry > 0) {
+            int sum = carry;
+            if (i != SIZE_MAX) {
+                sum += num1[i--] - '0';  // Convert char to int
+            }
+            if (j != SIZE_MAX) {
+                sum += num2[j--] - '0';  // Convert char to int
+            }
+            result += (sum % 10) + '0';  // Store the last digit
+            carry = sum / 10;             // Update carry
+        }
+        
+        // Reverse the result to get the correct order
+        std::reverse(result.begin(), result.end());
+        
+        // Remove leading zeros
+        size_t start = result.find_first_not_of('0');
+        if (start == std::string::npos) return "0"; // All zeros
+        
+        return result.substr(start);
+    }
+};
