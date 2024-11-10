@@ -1,0 +1,36 @@
+//Union of Two Sorted Arrays with Distinct Elements using C++
+
+class Solution {
+  public:
+    // a,b : the arrays
+    // Function to return a list containing the union of the two arrays.
+    vector<int> findUnion(vector<int> &a, vector<int> &b) {
+    int i = 0, j = 0, n = a.size(), m = b.size();
+    vector<int> ans;
+    
+    while (i < n && j < m) {
+        if (a[i] < b[j]) {
+            ans.push_back(a[i++]);
+        } else if (b[j] < a[i]) {
+            ans.push_back(b[j++]);
+        } else {
+            ans.push_back(a[i]);
+            i++;
+            j++;
+        }
+    }
+
+    // Append remaining elements from `a`
+    while (i < n) {
+        ans.push_back(a[i++]);
+    }
+
+    // Append remaining elements from `b`
+    while (j < m) {
+        ans.push_back(b[j++]);
+    }
+
+    return ans;
+        
+    }
+};
