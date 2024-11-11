@@ -1,0 +1,28 @@
+// Make array elements unique using C++
+
+class Solution {
+public:
+    int minIncrements(vector<int>& arr) {
+        int n = arr.size();
+        int sum = 0;
+
+        // Sort the array first
+        sort(arr.begin(), arr.end());
+
+        // Track the minimum value each element should be to avoid duplicates
+        int target = arr[0];
+
+        for (int i = 0; i < n; ++i) {
+            // Update target to be at least arr[i]
+            target = max(target, arr[i]);
+
+            // Calculate the increments needed
+            sum += target - arr[i];
+
+            // Increment target for the next unique value
+            target++;
+        }
+
+        return sum;
+    }
+};
